@@ -5,9 +5,11 @@ name = "pypi"
 
 [packages]
 django = "*"
+mysqlclient = "*"
 
 [dev-packages]
 neovim = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"
