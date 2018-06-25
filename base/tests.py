@@ -1,12 +1,13 @@
 from django.test import TestCase
-from .models import Estado
+from .models import State
 
-class EstadoTestCase(TestCase):
+
+class StateTestCase(TestCase):
     def setUp(self):
-        Estado(state="Paraíba", abbreviation="PB").save()
-        Estado(state="Rio Grande do Norte", abbreviation="RN").save()
-        Estado(state="Paraná", abbreviation="PR").save()
+        State(name="Paraíba", abbreviation="PB").save()
+        State(name="Paraná", abbreviation="PR").save()
+        State(name="Rio Grande do Norte", abbreviation="RN").save()
 
-    def test_get_estado(self):
-        e = Estado.objects.filter(abbreviation="PB").get()
+    def test_get_state(self):
+        e = State.objects.filter(abbreviation="PB").get()
         self.assertEqual(str(e), "Paraíba")
