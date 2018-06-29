@@ -7,6 +7,10 @@ pipeline {
 
     stages {
 
+        stage ('Prepare Environment') {
+            sh 'pip3 install pipenv';
+        }
+  
         stage ('Clone') {
         	deleteDir()
             checkout scm
