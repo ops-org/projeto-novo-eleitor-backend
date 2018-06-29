@@ -1,14 +1,12 @@
-node {
-
+pipeline {
     agent {
         docker {
             image 'python:3.6'
         }
     }
 
-    stages
-    
-    try {
+    stages {
+
         stage ('Clone') {
         	deleteDir()
             checkout scm
@@ -35,9 +33,5 @@ node {
       	stage ('Deploy') {
             sh "echo 'shell scripts to deploy to server...'"
       	}
-
-    } catch (err) {
-        currentBuild.result = 'FAILED'
-        throw err
     }
 }
