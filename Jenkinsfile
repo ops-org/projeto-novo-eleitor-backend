@@ -43,7 +43,9 @@ pipeline {
         }
 
       	stage ('Deploy') {
-            sh "echo 'shell scripts to deploy to server...'"
+            steps {
+                sh "echo 'shell scripts to deploy to server...'"
+            }
       	}
     }
 }
