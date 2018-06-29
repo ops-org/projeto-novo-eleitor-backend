@@ -8,30 +8,38 @@ pipeline {
     stages {
 
         stage ('Prepare Environment') {
-            sh 'pip3 install pipenv';
+            steps {
+                sh 'pip3 install pipenv';
+            }
         }
   
         stage ('Clone') {
-        	deleteDir()
-            checkout scm
+            steps {
+        	    deleteDir()
+                checkout scm
+            }
         }
 
         stage ('Build') {
-        	sh "echo 'shell scripts to build project...'"
-            sh 'docker images;'
-            sh 'docker run --rm fedora echo "Hello World!"'
+            steps {
+        	    sh "echo 'shell scripts to build project...'"
+                sh 'docker images;'
+                sh 'docker run --rm fedora echo "Hello World!"'
+            }
         }
 
         stage ('Tests') {
-	        parallel 'static': {
-	            sh "echo 'shell scripts to run static tests...'"
-	        },
-	        'unit': {
-	            sh "echo 'shell scripts to run unit tests...'"
-	        },
-	        'integration': {
-	            sh "echo 'shell scripts to run integration tests...'"
-	        }
+	        steps {
+                parallel 'static': {
+                    sh "echo 'shell scripts to run static tests...'"
+                },
+                'unit': {
+                    sh "echo 'shell scripts to run unit tests...'"
+                },
+                'integration': {
+                    sh "echo 'shell scripts to run integration tests...'"
+                }
+            }
         }
 
       	stage ('Deploy') {
