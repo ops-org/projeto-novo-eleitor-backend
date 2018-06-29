@@ -9,7 +9,7 @@ pipeline {
 
         stage ('Prepare Environment') {
             steps {
-                sh 'pip3 install pipenv';
+                sh 'pip3 install pipenv --user';
             }
         }
   
