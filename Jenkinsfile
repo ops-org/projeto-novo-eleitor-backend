@@ -1,16 +1,25 @@
 node {
 
-    deleteDir()
+    agent {
+        docker {
+            image 'python:3.6'
+        }
+    }
 
+    stages
+    
     try {
         stage ('Clone') {
-        	checkout scm
+        	deleteDir()
+            checkout scm
         }
+
         stage ('Build') {
         	sh "echo 'shell scripts to build project...'"
             sh 'docker images;'
             sh 'docker run --rm fedora echo "Hello World!"'
         }
+
         stage ('Tests') {
 	        parallel 'static': {
 	            sh "echo 'shell scripts to run static tests...'"
@@ -22,9 +31,11 @@ node {
 	            sh "echo 'shell scripts to run integration tests...'"
 	        }
         }
+
       	stage ('Deploy') {
             sh "echo 'shell scripts to deploy to server...'"
       	}
+
     } catch (err) {
         currentBuild.result = 'FAILED'
         throw err
